@@ -41,3 +41,6 @@ example
 # generated native folders
 /ios
 /android
+
+# Sprites de la mascota (licencia: no se pueden redistribuir)
+assets/cat/
