@@ -1,0 +1,38 @@
+import { View, Text, StyleSheet } from "react-native";
+import { Term } from "../types";
+import { colors, radius } from "../constants/theme";
+
+export default function TermCard({ term }: { term: Term }) {
+  return (
+    <View style={styles.card}>
+      <View style={styles.row}>
+        <Text style={styles.word}>{term.word}</Text>
+        <View style={styles.chip}>
+          <Text style={styles.chipText}>{term.category}</Text>
+        </View>
+      </View>
+      <Text style={styles.translation}>{term.translation}</Text>
+      <Text style={styles.definition}>{term.definition}</Text>
+      <Text style={styles.example}>“{term.example}”</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: colors.card,
+    borderRadius: radius.card,
+    borderWidth: 2,
+    borderBottomWidth: 5,
+    borderColor: colors.border,
+    padding: 16,
+    gap: 4,
+  },
+  row: { flexDirection: "row", alignItems: "center", gap: 8 },
+  word: { fontFamily: "Nunito_800ExtraBold", fontSize: 20, color: colors.text },
+  chip: { backgroundColor: colors.accent, borderRadius: 10, paddingHorizontal: 9, paddingVertical: 2 },
+  chipText: { fontFamily: "Nunito_800ExtraBold", fontSize: 12, color: colors.text },
+  translation: { fontFamily: "Nunito_800ExtraBold", fontSize: 16, color: colors.text },
+  definition: { fontFamily: "Nunito_600SemiBold", fontSize: 14, color: colors.muted },
+  example: { fontFamily: "Nunito_600SemiBold", fontSize: 14, color: colors.muted, fontStyle: "italic" },
+});
