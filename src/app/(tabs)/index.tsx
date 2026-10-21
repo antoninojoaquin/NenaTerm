@@ -1,10 +1,10 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { FlatList, TextInput, View, Text, StyleSheet } from "react-native";
 import ScreenHeader from "../../components/ScreenHeader";
 import TermCard from "../../components/TermCard";
 import { TERMS } from "../../data/data";
 import { colors, radius } from "../../constants/theme";
-import { normalize } from "../../utils/normalize"
+import { normalize } from "../../utils/normalize";
 
 export default function GlossaryScreen() {
   const [query, setQuery] = useState("");
@@ -13,7 +13,12 @@ export default function GlossaryScreen() {
     const q = normalize(query.trim());
     return [...TERMS]
       .sort((a, b) => a.word.localeCompare(b.word))
-      .filter((t) => !q || normalize(t.word).includes(q) || normalize(t.translation).includes(q));
+      .filter(
+        (t) =>
+          !q ||
+          normalize(t.word).includes(q) ||
+          normalize(t.translation).includes(q),
+      );
   }, [query]);
 
   const empty = results.length === 0;
@@ -22,7 +27,11 @@ export default function GlossaryScreen() {
     <View style={styles.screen}>
       <ScreenHeader
         title="Glosario"
-        message={empty ? "No encontré esa palabra…" : "¡Hola, soy Nena! ¿Qué palabra vemos hoy?"}
+        message={
+          empty
+            ? "No encontré esa palabra…"
+            : "¡Hola, soy Nena! ¿Qué palabra vemos hoy?"
+        }
         animation={empty ? "sad" : "sat"}
       />
       <FlatList
@@ -43,7 +52,10 @@ export default function GlossaryScreen() {
           />
         }
         ListEmptyComponent={
-          <Text style={styles.emptyText}>Probá en el Traductor, que sirve para palabras que no están en el glosario.</Text>
+          <Text style={styles.emptyText}>
+            Probá en el Traductor, que sirve para palabras que no están en el
+            glosario.
+          </Text>
         }
       />
     </View>
@@ -65,5 +77,11 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginBottom: 4,
   },
-  emptyText: { fontFamily: "Nunito_600SemiBold", fontSize: 15, color: colors.muted, textAlign: "center", marginTop: 12 },
+  emptyText: {
+    fontFamily: "Nunito_600SemiBold",
+    fontSize: 15,
+    color: colors.muted,
+    textAlign: "center",
+    marginTop: 12,
+  },
 });

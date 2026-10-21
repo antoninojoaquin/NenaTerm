@@ -1,0 +1,70 @@
+import * as Speech from "expo-speech";
+import { Lang } from "./translate";
+
+// Pegá acá el identifier de la voz elegida (lo sacás con auditionVoices)
+const PREFERRED_VOICE: Partial<Record<Lang, string>> = {
+  en: "en-us-x-tpd-local",
+};
+
+// 1 = normal. Bajalo (0.8 a 0.9) para una voz más grave
+const PITCH = 1.0;
+
+let current: (() => void) | null = null;
+const voiceCache: Partial<Record<Lang, string | undefined>> = {};
+
+const norm = (l: string) => l.toLowerCase().replace("_", "-");
+
+async function bestVoice(lang: Lang): Promise<string | undefined> {
+  if (lang in voiceCache) return voiceCache[lang];
+  const voices = await Speech.getAvailableVoicesAsync();
+
+  // la preferida, solo si existe en este celular
+  const preferred = PREFERRED_VOICE[lang];
+  if (preferred && voices.some((v) => v.identifier === preferred)) {
+    voiceCache[lang] = preferred;
+    return preferred;
+  }
+
+  // si no, la mejor calidad disponible
+  const ofLang = voices.filter((v) => norm(v.language).startsWith(lang));
+  const score = (v: (typeof voices)[number]) =>
+    (v.quality === Speech.VoiceQuality.Enhanced ? 2 : 0) +
+    (/en-us|es-ar|es-419/.test(norm(v.language)) ? 1 : 0);
+  voiceCache[lang] = [...ofLang].sort(
+    (a, b) => score(b) - score(a),
+  )[0]?.identifier;
+  return voiceCache[lang];
+}
+
+export function stopSpeaking() {
+  const finish = current;
+  current = null;
+  Speech.stop();
+  finish?.();
+}
+
+export async function speak(text: string, lang: Lang, onDone: () => void) {
+  stopSpeaking();
+
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    if (current === finish) current = null;
+    onDone();
+  };
+  current = finish;
+
+  const voice = await bestVoice(lang);
+  if (finished) return; // lo frenaron mientras elegía la voz
+
+  Speech.speak(text, {
+    language: lang === "en" ? "en-US" : "es-AR",
+    voice,
+    rate: 0.9,
+    pitch: PITCH,
+    onDone: finish,
+    onStopped: finish,
+    onError: finish,
+  });
+}

@@ -20,6 +20,12 @@ export default function AboutScreen() {
           </Text>
         </View>
         <View style={styles.card}>
+          <Text style={styles.cardTitle}>Interpretación de la mascota</Text>
+          <Text style={styles.cardText}>
+            Negrita "Nena" (Mascota de Tiziana Oldoni)
+          </Text>
+        </View>
+        <View style={styles.card}>
           <Text style={styles.cardTitle}>Traducción y fuente</Text>
           <Text style={styles.cardText}>MyMemory · Nunito (Google Fonts)</Text>
         </View>
