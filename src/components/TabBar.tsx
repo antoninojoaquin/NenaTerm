@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { BottomTabBarProps } from "expo-router/tabs";
 import { colors, radius } from "../constants/theme";
+import { hapticTap } from "../services/haptics";
 
 const LEDGE = 4;
 
@@ -14,6 +15,7 @@ export default function TabBar({ state, descriptors, navigation, insets }: Botto
         const color = focused ? colors.onPrimary : colors.muted;
 
         const onPress = () => {
+          if (!focused) hapticTap();
           const event = navigation.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
           if (!focused && !event.defaultPrevented) navigation.navigate(route.name, route.params);
         };
