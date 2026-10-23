@@ -1,56 +1,74 @@
-# Welcome to your Expo app 👋
+# Glosario Técnico
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+App de celular (Android / iOS) con el glosario de palabras técnicas en inglés que fuimos anotando durante el año en **Inglés Técnico II**. Además de consultarlas, sirve para practicarlas y escucharlas, con la ayuda de **Nena**, una gatita que reacciona a lo que hacés.
 
-## Get started
+## Qué tiene
 
-1. Install dependencies
+- **Glosario**: buscador (en inglés o en español) y filtro por categoría. Cada palabra tiene traducción, definición, un ejemplo de uso y botones para escuchar la palabra y el ejemplo con pronunciación en inglés.
+- **Práctica**: tres minijuegos de 10 preguntas con las palabras del glosario:
+  - *Inglés → Español*: elegir la traducción correcta.
+  - *Español → Inglés*: elegir la palabra en inglés.
+  - *Escucha*: Nena dice la palabra y hay que reconocerla.
 
-   ```bash
-   npm install
-   ```
+  Al final se ve el puntaje y las palabras para repasar. Nena salta cuando acertás, se golpea cuando errás y se marea si errás varias seguidas.
+- **Traductor**: primero busca la palabra en el glosario. Si no está, la traduce con la API de MyMemory.
+- **Acerca de**: créditos del proyecto.
 
-2. Start the app
+## Tecnologías
 
-   ```bash
-   npx expo start
-   ```
+- [Expo](https://expo.dev) (SDK 57) + React Native + TypeScript
+- Expo Router para la navegación por pestañas
+- `expo-speech` para la pronunciación y `expo-haptics` para la vibración
+- [MyMemory](https://mymemory.translated.net/) para las traducciones
 
-In the output, you'll find options to open the app in a
+## Cómo correrla
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Hace falta [Node.js](https://nodejs.org) y la app **Expo Go** en el celular.
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Escaneá el código QR con Expo Go (Android) o con la cámara (iOS). Si se queda trabada cargando, probá con:
 
-### Other setup steps
+```bash
+npx expo start --offline   # si la PC no tiene buena conexión a internet
+npx expo start --tunnel    # si el celular no llega a la PC por el Wi-Fi
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Cómo agregar palabras
 
-## Learn more
+Las palabras están en [`src/data/data.ts`](src/data/data.ts). Cada una tiene esta forma:
 
-To learn more about developing your project with Expo, look at the following resources:
+```ts
+{
+  id: "bandwidth",
+  word: "Bandwidth",
+  translation: "Ancho de banda",
+  definition: "Cantidad de datos que pasan por segundo.",
+  example: "Video calls need a lot of bandwidth.",
+  category: "Networking",
+},
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Las categorías nuevas aparecen solas en el filtro del glosario, y las palabras nuevas entran automáticamente en los minijuegos.
 
-## Join the community
+## Estructura
 
-Join our community of developers creating universal apps.
+```
+src/
+  app/          pantallas (cada archivo de app/(tabs) es una pestaña)
+  components/   componentes reutilizables (tarjetas, botones, mascota, minijuegos)
+  services/     lógica: búsqueda, quiz, traducción, voz y vibración
+  data/         las palabras del glosario
+  mascot/       animaciones de Nena
+  constants/    colores y estilos compartidos
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Créditos
+
+- Mascota: *Cat Sprite Pack* por julesleech (itch.io)
+- Interpretación de la mascota: Negrita “Nena” (mascota de Tiziana Oldoni)
+- Traducción: MyMemory
+- Tipografía: Nunito (Google Fonts)
