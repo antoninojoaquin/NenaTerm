@@ -17,7 +17,10 @@ export default function TermCard({ term }: { term: Term }) {
       </View>
       <Text style={styles.translation}>{term.translation}</Text>
       <Text style={styles.definition}>{term.definition}</Text>
-      <Text style={styles.example}>“{term.example}”</Text>
+      <View style={styles.exampleRow}>
+        <Text style={styles.example}>“{term.example}”</Text>
+        <SpeakButton text={term.example} size={32} />
+      </View>
     </View>
   );
 }
@@ -32,7 +35,6 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 4,
   },
-  row: { flexDirection: "row", alignItems: "center", gap: 8 },
   word: {
     fontFamily: "Nunito_800ExtraBold",
     fontSize: 20,
@@ -60,7 +62,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.muted,
   },
+  exampleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginTop: 4,
+  },
   example: {
+    flex: 1,
     fontFamily: "Nunito_600SemiBold",
     fontSize: 14,
     color: colors.muted,

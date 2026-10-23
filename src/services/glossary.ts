@@ -16,3 +16,5 @@ export function findInGlossary(text: string, from: Lang): Term | undefined {
       .some((part) => part.trim() === q)
   );
 }
+
+export const CATEGORIES = [...new Set(TERMS.map((t) => t.category))].sort();
