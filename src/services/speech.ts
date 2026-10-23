@@ -1,13 +1,14 @@
 import * as Speech from "expo-speech";
 import { Lang } from "./translate";
 
-// Pegá acá el identifier de la voz elegida (lo sacás con auditionVoices)
+// La voz de Nena: femenina de Google TTS (Android). Si el celular no la
+// tiene, se usa la mejor voz disponible
 const PREFERRED_VOICE: Partial<Record<Lang, string>> = {
-  en: "en-us-x-tpd-local",
+  en: "en-us-x-iog-local",
 };
 
-// 1 = normal. Bajalo (0.8 a 0.9) para una voz más grave
-const PITCH = 1.0;
+// 1 = normal. 1.5 le da el tono agudo de gatita; más arriba se deforma
+const PITCH = 1.5;
 
 let current: (() => void) | null = null;
 const voiceCache: Partial<Record<Lang, string | undefined>> = {};
