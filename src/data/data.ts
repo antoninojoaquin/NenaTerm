@@ -4,7 +4,7 @@ export const TERMS: Term[] = [
   {
     id: "firmware",
     word: "Firmware",
-    translation: "Firmware (programa interno)",
+    translation: "Firmware",
     definition: "Software grabado en un dispositivo.",
     example: "The router needs a firmware update.",
     category: "Hardware",

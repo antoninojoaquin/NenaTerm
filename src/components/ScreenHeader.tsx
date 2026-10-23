@@ -11,6 +11,8 @@ type Props = {
   animation?: MascotAnimation;
   variant?: "bubble" | "hero";
   loop?: boolean;
+  replayKey?: number | string; // cambialo para repetir la animación
+  compact?: boolean; // Nena más chica y sin título, para dejar lugar abajo
 };
 
 export default function ScreenHeader({
@@ -20,12 +22,14 @@ export default function ScreenHeader({
   animation = "sat",
   variant = "bubble",
   loop = false,
+  replayKey,
+  compact = false,
 }: Props) {
   if (variant === "hero") {
     return (
       <SafeAreaView edges={["top"]} style={styles.wrap}>
         <View style={styles.platform}>
-          <Mascot animation={animation} size={128} loop={loop} />
+          <Mascot animation={animation} size={128} loop={loop} replayKey={replayKey} />
         </View>
         <Text style={[styles.title, styles.center]}>{title}</Text>
         {subtitle ? (
@@ -36,16 +40,16 @@ export default function ScreenHeader({
   }
 
   return (
-    <SafeAreaView edges={["top"]} style={styles.wrap}>
+    <SafeAreaView edges={["top"]} style={[styles.wrap, compact && styles.wrapCompact]}>
       <View style={styles.row}>
-        <Mascot animation={animation} size={96} loop={loop} />
+        <Mascot animation={animation} size={compact ? 64 : 96} loop={loop} replayKey={replayKey} />
         {message ? (
           <View style={styles.bubble}>
             <Text style={styles.bubbleText}>{message}</Text>
           </View>
         ) : null}
       </View>
-      <Text style={styles.title}>{title}</Text>
+      {!compact && <Text style={styles.title}>{title}</Text>}
     </SafeAreaView>
   );
 }
@@ -59,6 +63,7 @@ const styles = StyleSheet.create({
     paddingBottom: 22,
     gap: 10,
   },
+  wrapCompact: { paddingBottom: 12 },
   row: { flexDirection: "row", alignItems: "center", gap: 10 },
   bubble: {
     flex: 1,
