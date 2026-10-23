@@ -10,7 +10,9 @@ type Props = { text: string; lang?: Lang; size?: number };
 export default function SpeakButton({ text, lang = "en", size = 40 }: Props) {
   const [speaking, setSpeaking] = useState(false);
   const speakingRef = useRef(false);
-  speakingRef.current = speaking;
+  useEffect(() => {
+    speakingRef.current = speaking;
+  }, [speaking]);
 
   // si la tarjeta desaparece mientras habla, corta el audio
   useEffect(() => () => { if (speakingRef.current) stopSpeaking(); }, []);

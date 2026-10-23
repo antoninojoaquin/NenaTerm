@@ -57,8 +57,8 @@ export default function Mascot({
   useEffect(() => {
     if (settled) return;
 
+    // no hace falta resetear pos: con un runKey nuevo, el render ya usa startFrame
     let current = startFrame;
-    setPos({ key: runKey, frame: startFrame });
     let hold: ReturnType<typeof setTimeout> | undefined;
 
     const finish = () => {
@@ -93,7 +93,7 @@ export default function Mascot({
       clearInterval(id);
       clearTimeout(hold);
     };
-  }, [runKey, frames, fps, loop]);
+  }, [runKey, frames, fps, loop, settled, startFrame, reaction, baseKey]);
 
   const handlePress = () => {
     if (!onPressAnimation) return;
