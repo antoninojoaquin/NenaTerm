@@ -1,7 +1,7 @@
 import { Term } from "../types";
 import { normalize } from "../utils/normalize";
 
-export type QuizMode = "en-es" | "es-en" | "listen";
+export type QuizMode = "en-es" | "es-en" | "listen" | "definition";
 
 export type Question = {
   term: Term;
@@ -36,5 +36,6 @@ const isLoanword = (t: Term) => normalize(t.translation).includes(normalize(t.wo
 const spanish = (t: Term) => (isLoanword(t) ? t.definition : t.translation);
 
 // lo que se pregunta y lo que se elige, según el modo
-export const prompt = (mode: QuizMode, t: Term) => (mode === "es-en" ? spanish(t) : t.word);
+export const prompt = (mode: QuizMode, t: Term) =>
+  mode === "definition" ? t.definition : mode === "es-en" ? spanish(t) : t.word;
 export const optionLabel = (mode: QuizMode, t: Term) => (mode === "en-es" ? spanish(t) : t.word);

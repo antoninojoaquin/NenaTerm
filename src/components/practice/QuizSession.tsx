@@ -22,7 +22,11 @@ const ASK: Record<QuizMode, string> = {
   "en-es": "¿Qué significa en español?",
   "es-en": "¿Cómo se dice en inglés?",
   listen: "¿Qué palabra escuchaste?",
+  definition: "¿Qué palabra es?",
 };
+
+// a partir de este largo (las definiciones) la pregunta va en letra más chica
+const LONG_PROMPT = 40;
 
 // todo entra en una pantalla: nada se mueve ni aparece abajo al responder
 export default function QuizSession({ mode, questions, onCue, onFinish, onExit }: Props) {
@@ -33,6 +37,8 @@ export default function QuizSession({ mode, questions, onCue, onFinish, onExit }
 
   const { term, options } = questions[index];
   const isLast = index === questions.length - 1;
+  const question = prompt(mode, term);
+  const long = question.length > LONG_PROMPT;
 
   // en modo escucha, Nena dice la palabra apenas aparece la pregunta
   useEffect(() => {
@@ -87,8 +93,12 @@ export default function QuizSession({ mode, questions, onCue, onFinish, onExit }
         {mode === "listen" ? (
           <SpeakButton text={term.word} size={64} />
         ) : (
-          <Text style={styles.prompt} numberOfLines={3} adjustsFontSizeToFit>
-            {prompt(mode, term)}
+          <Text
+            style={[styles.prompt, long && styles.promptLong]}
+            numberOfLines={long ? 6 : 3}
+            adjustsFontSizeToFit
+          >
+            {question}
           </Text>
         )}
       </View>
@@ -149,6 +159,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     textAlign: "center",
   },
+  promptLong: { fontFamily: "Nunito_600SemiBold", fontSize: 17 },
   options: { flex: 3, gap: 8, justifyContent: "center" },
   option: { maxHeight: 84 },
   footer: { flexDirection: "row", gap: 10 },

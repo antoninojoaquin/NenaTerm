@@ -19,6 +19,7 @@ const GAMES: { game: QuizMode; title: string; description: string; icon: React.C
   { game: "en-es", title: "Inglés → Español", description: "Elegí la traducción correcta", icon: "language" },
   { game: "es-en", title: "Español → Inglés", description: "Elegí la palabra en inglés", icon: "chatbubbles" },
   { game: "listen", title: "Escucha", description: "Nena la dice, vos la reconocés", icon: "headset" },
+  { game: "definition", title: "Definición → Palabra", description: "Leé qué es y elegí la palabra", icon: "book" },
 ];
 
 const MENU_CUE: MascotCue = { animation: "sat", message: "¿Practicamos? Elegí un juego." };
@@ -27,6 +28,7 @@ const START_CUE: Record<QuizMode, string> = {
   "en-es": "¿Qué significa en español?",
   "es-en": "¿Cómo se dice en inglés?",
   listen: "¡Escuchá bien!",
+  definition: "¿Qué palabra es?",
 };
 
 function resultCue({ score, total }: Result): MascotCue {
