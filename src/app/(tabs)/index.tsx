@@ -1,37 +1,39 @@
 import { useMemo, useState } from "react";
-import { FlatList, TextInput, View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
+import { SectionList, TextInput, View, Text, StyleSheet } from "react-native";
 import ScreenHeader from "../../components/ScreenHeader";
 import TermCard from "../../components/TermCard";
+import FilterChips, { ALL } from "../../components/FilterChips";
 import { TERMS } from "../../data/data";
 import { colors } from "../../constants/theme";
 import { normalize } from "../../utils/normalize";
-import { CATEGORIES } from "../../services/glossary";
-
-type Filter = "all" | string;
+import { Term } from "../../types";
 
 export default function GlossaryScreen() {
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState<Filter>("all");
+  const [filter, setFilter] = useState(ALL);
 
-  const results = useMemo(() => {
+  // ordenadas de la A a la Z y agrupadas por la primera letra
+  const sections = useMemo(() => {
     const q = normalize(query.trim());
-    return [...TERMS]
+    const results = [...TERMS]
       .sort((a, b) => a.word.localeCompare(b.word))
-      .filter((t) => filter === "all" || t.category === filter)
+      .filter((t) => filter === ALL || t.category === filter)
       .filter(
         (t) =>
           !q ||
           normalize(t.word).includes(q) ||
           normalize(t.translation).includes(q),
       );
+
+    const byLetter = new Map<string, Term[]>();
+    for (const t of results) {
+      const letter = normalize(t.word[0]).toUpperCase();
+      byLetter.set(letter, [...(byLetter.get(letter) ?? []), t]);
+    }
+    return [...byLetter].map(([title, data]) => ({ title, data }));
   }, [query, filter]);
 
-  const empty = results.length === 0;
-
-  const chips: { value: Filter; label: string }[] = [
-    { value: "all", label: "Todas" },
-    ...CATEGORIES.map((c) => ({ value: c, label: c })),
-  ];
+  const empty = sections.length === 0;
 
   return (
     <View style={styles.screen}>
@@ -44,10 +46,12 @@ export default function GlossaryScreen() {
         }
         animation={empty ? "sad" : "sat"}
       />
-      <FlatList
-        data={results}
+      <SectionList
+        sections={sections}
         keyExtractor={(t) => t.id}
         renderItem={({ item }) => <TermCard term={item} />}
+        renderSectionHeader={({ section }) => <Text style={styles.letter}>{section.title}</Text>}
+        stickySectionHeadersEnabled={false}
         contentContainerStyle={styles.list}
         keyboardShouldPersistTaps="handled"
         ListHeaderComponent={
@@ -61,27 +65,7 @@ export default function GlossaryScreen() {
               accessibilityLabel="Buscar palabra"
               autoCorrect={false}
             />
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.chips}
-              style={styles.chipsScroll}
-            >
-              {chips.map(({ value, label }) => {
-                const active = filter === value;
-                return (
-                  <Pressable
-                    key={value}
-                    onPress={() => setFilter(value)}
-                    accessibilityRole="button"
-                    accessibilityState={{ selected: active }}
-                    style={[styles.chip, active && styles.chipActive]}
-                  >
-                    <Text style={[styles.chipText, active && styles.chipTextActive]}>{label}</Text>
-                  </Pressable>
-                );
-              })}
-            </ScrollView>
+            <FilterChips value={filter} onChange={setFilter} />
           </View>
         }
         ListEmptyComponent={
@@ -110,20 +94,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: colors.text,
   },
-  chipsScroll: { marginHorizontal: -20 },
-  chips: { gap: 8, paddingHorizontal: 20 },
-  chip: {
-    backgroundColor: colors.card,
-    borderWidth: 2,
-    borderBottomWidth: 4,
-    borderColor: colors.border,
-    borderRadius: 14,
-    paddingHorizontal: 14,
-    paddingVertical: 6,
+  letter: {
+    fontFamily: "Nunito_800ExtraBold",
+    fontSize: 22,
+    color: colors.primary,
+    marginTop: 6,
   },
-  chipActive: { backgroundColor: colors.primary, borderColor: colors.primaryDark },
-  chipText: { fontFamily: "Nunito_800ExtraBold", fontSize: 14, color: colors.text },
-  chipTextActive: { color: colors.onPrimary },
   emptyText: {
     fontFamily: "Nunito_600SemiBold",
     fontSize: 15,
