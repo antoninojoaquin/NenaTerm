@@ -26,6 +26,10 @@ export default function AboutScreen() {
           </Text>
         </View>
         <View style={styles.card}>
+          <Text style={styles.cardTitle}>Sonidos</Text>
+          <Text style={styles.cardText}>Interface Sounds por Kenney (kenney.nl)</Text>
+        </View>
+        <View style={styles.card}>
           <Text style={styles.cardTitle}>Traducción y fuente</Text>
           <Text style={styles.cardText}>MyMemory · Nunito (Google Fonts)</Text>
         </View>
