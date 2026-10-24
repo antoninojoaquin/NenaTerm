@@ -20,7 +20,12 @@
         "monochromeImage": "./assets/images/monochrome-icon.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.antoninojoaquin.nenaterm"
+      "package": "com.antoninojoaquin.nenaterm",
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ]
     },
     "web": {
       "output": "static",
@@ -50,6 +55,15 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "37b371db-d6b6-42d8-8a89-0e1311bb4bce"
+      }
+    },
+    "owner": "antoninojoaquin",
+    "updates": {
+      "url": "https://u.expo.dev/37b371db-d6b6-42d8-8a89-0e1311bb4bce"
     }
   }
 }
