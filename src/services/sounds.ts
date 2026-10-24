@@ -30,9 +30,13 @@ export function loadSounds() {
       if (players[name]) continue;
       const player = createAudioPlayer(SOURCES[name]);
       player.volume = VOLUME[name] ?? 1;
-      // apenas termina se rebobina, así el próximo play() arranca sin esperar
+      // apenas termina se rebobina, así el próximo play() arranca sin esperar.
+      // Hay que pausarlo antes: en Android queda "en play" al terminar y,
+      // si solo se rebobina, vuelve a sonar solo (y queda en bucle)
       player.addListener("playbackStatusUpdate", (status) => {
-        if (status.didJustFinish) player.seekTo(0).catch(() => {});
+        if (!status.didJustFinish) return;
+        player.pause();
+        player.seekTo(0).catch(() => {});
       });
       players[name] = player;
     } catch {
