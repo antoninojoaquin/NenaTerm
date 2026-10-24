@@ -55,6 +55,29 @@ Las palabras están en [`src/data/data.ts`](src/data/data.ts). Cada una tiene es
 
 Las categorías nuevas aparecen solas en el filtro del glosario, y las palabras nuevas entran automáticamente en los minijuegos.
 
+## Generar el APK
+
+El APK se compila en la nube con [EAS](https://expo.dev/eas). Hace falta una cuenta de Expo:
+
+```bash
+npx eas-cli@latest login
+npx eas-cli@latest build -p android --profile preview
+```
+
+Al terminar, EAS da un link para descargar el `.apk` e instalarlo en el celular.
+
+Los sprites de Nena (`assets/cat/`) no están en el repo por su licencia, pero el build los necesita: por eso `.easignore` los incluye al subir el proyecto a EAS.
+
+## Actualizar la app sin reinstalarla
+
+Los cambios de código o de palabras se mandan a los celulares que ya tienen el APK, y se aplican la próxima vez que abren la app:
+
+```bash
+npx eas-cli@latest update --channel preview --environment preview --message "qué cambió"
+```
+
+Si se agrega una librería con código nativo, la actualización ya no le llega al APK viejo y hay que generar uno nuevo.
+
 ## Estructura
 
 ```
