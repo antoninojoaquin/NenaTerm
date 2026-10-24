@@ -3,14 +3,17 @@ import { Tabs } from "expo-router";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import TabBar from "../../components/TabBar";
 
+// nuestra TabBar siempre pasa colores como texto ("#..."), pero el tipo admite más
+const asText = (color: ColorValue) => (typeof color === "string" ? color : undefined);
+
 const antIcon = (name: React.ComponentProps<typeof AntDesign>["name"]) =>
   function TabIcon({ color, size }: { color: ColorValue; size: number }) {
-    return <AntDesign name={name} size={size} color={color} />;
+    return <AntDesign name={name} size={size} color={asText(color)} />;
   };
 
 const fontAwesomeIcon = (name: React.ComponentProps<typeof FontAwesome5>["name"]) =>
   function TabIcon({ color, size }: { color: ColorValue; size: number }) {
-    return <FontAwesome5 name={name} size={size} color={color} />;
+    return <FontAwesome5 name={name} size={size} color={asText(color)} />;
   };
 
 export default function TabsLayout() {

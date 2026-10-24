@@ -44,7 +44,7 @@ export default function Mascot({
   const active = reaction?.name ?? animation;
   const { source, fps } = ANIMATIONS[active];
   const sheet = Image.resolveAssetSource(source);
-  const frames = Math.max(1, Math.round(sheet.width / FRAME));
+  const frames = Math.max(1, Math.round((sheet?.width ?? FRAME) / FRAME));
 
   // la reacción salta el primer frame (la pose normal)
   const startFrame = reaction && frames > 1 ? 1 : 0;

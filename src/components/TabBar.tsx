@@ -5,7 +5,7 @@ import { hapticTap } from "../services/haptics";
 
 const LEDGE = 4;
 
-export default function TabBar({ state, descriptors, navigation, insets }: BottomTabBarProps) {
+export default function TabBar({ state, descriptors, emitter, navigateToTab, insets }: BottomTabBarProps) {
   return (
     <View style={[styles.bar, { paddingBottom: insets.bottom + 10 }]}>
       {state.routes.map((route, index) => {
@@ -16,8 +16,8 @@ export default function TabBar({ state, descriptors, navigation, insets }: Botto
 
         const onPress = () => {
           if (!focused) hapticTap();
-          const event = navigation.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
-          if (!focused && !event.defaultPrevented) navigation.navigate(route.name, route.params);
+          const event = emitter.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
+          if (!focused && !event.defaultPrevented) navigateToTab(route.key);
         };
 
         return (
@@ -25,7 +25,7 @@ export default function TabBar({ state, descriptors, navigation, insets }: Botto
             {focused && <View style={styles.ledge} />}
             <Pressable
               onPress={onPress}
-              onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })}
+              onLongPress={() => emitter.emit({ type: "tabLongPress", target: route.key })}
               accessibilityRole="tab"
               accessibilityState={{ selected: focused }}
               accessibilityLabel={label}
