@@ -4,11 +4,12 @@ App de celular (Android / iOS) con el glosario de palabras técnicas en inglés 
 
 ## Qué tiene
 
-- **Glosario**: buscador (en inglés o en español) y filtro por categoría. Cada palabra tiene traducción, definición, un ejemplo de uso y botones para escuchar la palabra y el ejemplo con pronunciación en inglés.
-- **Práctica**: tres minijuegos de 10 preguntas con las palabras del glosario:
+- **Glosario**: palabras ordenadas de la A a la Z y agrupadas por letra, con buscador (en inglés o en español) y filtro por categoría. Cada palabra tiene traducción, definición, un ejemplo de uso y botones para escuchar la palabra y el ejemplo con pronunciación en inglés.
+- **Práctica**: cuatro minijuegos de 10 preguntas al azar con las palabras del glosario:
   - *Inglés → Español*: elegir la traducción correcta.
   - *Español → Inglés*: elegir la palabra en inglés.
   - *Escucha*: Nena dice la palabra y hay que reconocerla.
+  - *Definición → Palabra*: leer la definición y elegir la palabra.
 
   Al final se ve el puntaje y las palabras para repasar. Nena salta cuando acertás, se golpea cuando errás y se marea si errás varias seguidas.
 - **Traductor**: primero busca la palabra en el glosario. Si no está, la traduce con la API de MyMemory.
@@ -16,7 +17,7 @@ App de celular (Android / iOS) con el glosario de palabras técnicas en inglés 
 
 ## Tecnologías
 
-- [Expo](https://expo.dev) (SDK 57) + React Native + TypeScript
+- [Expo](https://expo.dev) (SDK 58) + React Native + TypeScript
 - Expo Router para la navegación por pestañas
 - `expo-speech` para la pronunciación y `expo-haptics` para la vibración
 - [MyMemory](https://mymemory.translated.net/) para las traducciones
