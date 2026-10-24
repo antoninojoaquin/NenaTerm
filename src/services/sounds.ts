@@ -30,6 +30,10 @@ export function loadSounds() {
       if (players[name]) continue;
       const player = createAudioPlayer(SOURCES[name]);
       player.volume = VOLUME[name] ?? 1;
+      // apenas termina se rebobina, así el próximo play() arranca sin esperar
+      player.addListener("playbackStatusUpdate", (status) => {
+        if (status.didJustFinish) player.seekTo(0).catch(() => {});
+      });
       players[name] = player;
     } catch {
       // sin audio la app sigue andando
@@ -37,13 +41,18 @@ export function loadSounds() {
   }
 }
 
-// igual que la vibración: si falla, no pasa nada.
-// Vuelve al principio antes de sonar, por si ya se reprodujo
+// igual que la vibración: si falla, no pasa nada
 async function play(name: Sound) {
   const player = players[name];
   if (!player) return;
   try {
-    await player.seekTo(0);
+    // si ya está sonando (tocaron dos veces), vuelve a empezar
+    if (player.playing) {
+      await player.seekTo(0);
+      return;
+    }
+    // por si no llegó el aviso de que terminó y quedó sin rebobinar
+    if (player.currentTime > 0) await player.seekTo(0);
     player.play();
   } catch {}
 }
