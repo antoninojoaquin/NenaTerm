@@ -37,11 +37,14 @@ async function findVoice(lang: Lang): Promise<string | undefined> {
 
 const bestVoice = (lang: Lang) => (voiceCache[lang] ??= findVoice(lang).catch(() => undefined));
 
-// En Android el motor de voz recién arranca la primera vez que se usa, y eso
-// tarda unos segundos. Llamarla al abrir la app hace que el primer botón
-// de escuchar ya lo encuentre listo
-export function warmUpSpeech() {
-  bestVoice("en");
+// En Android el motor de voz recién arranca la primera vez que se usa, y la
+// voz de Nena recién se carga la primera vez que habla: las dos cosas tardan.
+// Llamarla al abrir la app arranca el motor y le hace decir algo en volumen 0,
+// así el primer botón de escuchar ya encuentra todo listo
+export async function warmUpSpeech() {
+  const voice = await bestVoice("en");
+  if (current) return; // ya están escuchando algo de verdad
+  Speech.speak("hi", { language: "en-US", voice, pitch: PITCH, volume: 0 });
 }
 
 export function stopSpeaking() {

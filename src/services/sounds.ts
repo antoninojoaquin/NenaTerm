@@ -14,7 +14,7 @@ type Sound = keyof typeof SOURCES;
 // de 0 a 1; estos sonaban demasiado fuerte al lado de los otros
 const VOLUME: Partial<Record<Sound, number>> = {
   wrong: 0.4,
-  meow: 0.2,
+  meow: 0.1,
 };
 
 // un reproductor por sonido, creado una sola vez y reutilizado
