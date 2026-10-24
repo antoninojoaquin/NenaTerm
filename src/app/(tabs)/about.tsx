@@ -6,7 +6,7 @@ export default function AboutScreen() {
   return (
     <View style={styles.screen}>
       <ScreenHeader
-        title="Glosario Técnico"
+        title="NenaTerm"
         subtitle="Proyecto final - Inglés Técnico II"
         animation="sleep"
         variant="hero"

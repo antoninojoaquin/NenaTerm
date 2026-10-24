@@ -1,12 +1,15 @@
 {
   "expo": {
-    "name": "Glosario Técnico",
-    "slug": "glossary",
+    "name": "NenaTerm",
+    "slug": "nenaterm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "glossary",
+    "scheme": "nenaterm",
     "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.antoninojoaquin.nenaterm"
+    },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#9B5DE5",
@@ -14,7 +17,7 @@
         "monochromeImage": "./assets/images/monochrome-icon.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.glossary"
+      "package": "com.antoninojoaquin.nenaterm"
     },
     "web": {
       "output": "static",
