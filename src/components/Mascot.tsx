@@ -5,6 +5,7 @@ import {
   MascotAnimation,
   STATIC_LAST_FRAME,
 } from "../mascot/animations";
+import { soundMeow } from "../services/sounds";
 
 const FRAME = 64; // cada frame mide 64x64 px
 const HOLD_MS = 800; // cuánto se queda en la pose de la reacción
@@ -97,6 +98,7 @@ export default function Mascot({
 
   const handlePress = () => {
     if (!onPressAnimation) return;
+    soundMeow();
     setReaction((prev) => ({
       name: onPressAnimation,
       id: (prev?.id ?? 0) + 1,

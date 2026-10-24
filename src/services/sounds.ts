@@ -6,6 +6,7 @@ const SOURCES = {
   correct: require("../../assets/audio/correct.mp3"),
   wrong: require("../../assets/audio/wrong.mp3"),
   finish: require("../../assets/audio/finish.mp3"),
+  meow: require("../../assets/audio/meow.mp3"),
 };
 
 type Sound = keyof typeof SOURCES;
@@ -49,3 +50,4 @@ async function play(name: Sound) {
 export const soundCorrect = () => play("correct");
 export const soundWrong = () => play("wrong");
 export const soundFinish = () => play("finish");
+export const soundMeow = () => play("meow");
