@@ -19,7 +19,7 @@ App de celular (Android / iOS) con el glosario de palabras técnicas en inglés 
 
 - [Expo](https://expo.dev) (SDK 58) + React Native + TypeScript
 - Expo Router para la navegación por pestañas
-- `expo-speech` para la pronunciación y `expo-haptics` para la vibración
+- `expo-speech` para la pronunciación, `expo-haptics` para la vibración y `expo-audio` para los sonidos
 - [MyMemory](https://mymemory.translated.net/) para las traducciones
 
 ## Cómo correrla
@@ -61,7 +61,7 @@ Las categorías nuevas aparecen solas en el filtro del glosario, y las palabras 
 src/
   app/          pantallas (cada archivo de app/(tabs) es una pestaña)
   components/   componentes reutilizables (tarjetas, botones, mascota, minijuegos)
-  services/     lógica: búsqueda, quiz, traducción, voz y vibración
+  services/     lógica: búsqueda, quiz, traducción, voz, sonidos y vibración
   data/         las palabras del glosario
   mascot/       animaciones de Nena
   constants/    colores y estilos compartidos
@@ -71,5 +71,6 @@ src/
 
 - Mascota: *Cat Sprite Pack* por julesleech (itch.io)
 - Interpretación de la mascota: Negrita “Nena” (mascota de Tiziana Oldoni)
+- Sonidos: *Interface Sounds* por Kenney (kenney.nl, CC0)
 - Traducción: MyMemory
 - Tipografía: Nunito (Google Fonts)

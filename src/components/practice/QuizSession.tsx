@@ -7,6 +7,7 @@ import { MascotCue, SessionResult } from "./types";
 import { optionLabel, prompt, Question, QuizMode } from "../../services/quiz";
 import { speak, stopSpeaking } from "../../services/speech";
 import { hapticError, hapticSuccess } from "../../services/haptics";
+import { soundCorrect, soundWrong } from "../../services/sounds";
 import { colors, radius } from "../../constants/theme";
 import { Term } from "../../types";
 
@@ -49,15 +50,18 @@ export default function QuizSession({ mode, questions, onCue, onFinish, onExit }
   const pick = (option: Term) => {
     if (picked) return;
     setPicked(option);
+    stopSpeaking(); // que el sonido no se pise con la voz de Nena
 
     if (option.id === term.id) {
       hapticSuccess();
+      soundCorrect();
       setWrongStreak(0);
       onCue({ animation: "jump", message: "¡Muy bien!" });
       return;
     }
 
     hapticError();
+    soundWrong();
     setMissed((m) => [...m, term]);
     setWrongStreak((s) => s + 1);
     onCue(

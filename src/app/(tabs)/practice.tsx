@@ -8,6 +8,7 @@ import SessionResult from "../../components/practice/SessionResult";
 import { MascotCue, SessionResult as Result } from "../../components/practice/types";
 import { buildQuiz, Question, QuizMode } from "../../services/quiz";
 import { TERMS } from "../../data/data";
+import { soundFinish } from "../../services/sounds";
 import { colors } from "../../constants/theme";
 
 type Stage =
@@ -52,6 +53,7 @@ export default function PracticeScreen() {
   };
 
   const finish = (mode: QuizMode) => (result: Result) => {
+    soundFinish();
     say(resultCue(result));
     setView({ kind: "result", mode, result });
   };
