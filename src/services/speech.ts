@@ -10,6 +10,9 @@ const PREFERRED_VOICE: Partial<Record<Lang, string>> = {
 // 1 = normal. 1.5 le da el tono agudo de gatita; más arriba se deforma
 const PITCH = 1.5;
 
+// de 0 a 1; a todo volumen sonaba muy fuerte
+const VOLUME = 0.7;
+
 let current: (() => void) | null = null;
 // se guarda la promesa (no el resultado) para que dos pedidos a la vez
 // no busquen las voces dos veces
@@ -68,6 +71,7 @@ export async function speak(text: string, lang: Lang, onDone: () => void) {
     voice,
     rate: 0.9,
     pitch: PITCH,
+    volume: VOLUME,
     onDone: finish,
     onStopped: finish,
     onError: finish,
