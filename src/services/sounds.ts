@@ -10,6 +10,11 @@ const SOURCES = {
 
 type Sound = keyof typeof SOURCES;
 
+// de 0 a 1; el de error sonaba demasiado fuerte al lado de los otros
+const VOLUME: Partial<Record<Sound, number>> = {
+  wrong: 0.4,
+};
+
 // un reproductor por sonido, creado una sola vez y reutilizado
 const players: Partial<Record<Sound, AudioPlayer>> = {};
 
@@ -20,7 +25,10 @@ export function loadSounds() {
   setAudioModeAsync({ playsInSilentMode: false, interruptionMode: "mixWithOthers" }).catch(() => {});
   for (const name of Object.keys(SOURCES) as Sound[]) {
     try {
-      players[name] ??= createAudioPlayer(SOURCES[name]);
+      if (players[name]) continue;
+      const player = createAudioPlayer(SOURCES[name]);
+      player.volume = VOLUME[name] ?? 1;
+      players[name] = player;
     } catch {
       // sin audio la app sigue andando
     }
