@@ -121,5 +121,6 @@ docs/           imágenes de este README
 - Mascota: *Cat Sprite Pack* por julesleech (itch.io)
 - Interpretación de la mascota: Negrita “Nena” (mascota de Tiziana Oldoni)
 - Sonidos: *Interface Sounds* por Kenney (kenney.nl, CC0)
+- Gruñido de Nena: *hiss3* por Reitanna (Freesound), vía Pixabay (Licencia de contenido de Pixabay)
 - Traducción: MyMemory
 - Tipografía: Nunito (Google Fonts)

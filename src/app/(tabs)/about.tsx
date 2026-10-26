@@ -28,6 +28,7 @@ export default function AboutScreen() {
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Sonidos</Text>
           <Text style={styles.cardText}>Interface Sounds por Kenney (kenney.nl)</Text>
+          <Text style={styles.cardText}>Gruñido de Nena: hiss3 por Reitanna (Freesound, vía Pixabay)</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Traducción y fuente</Text>
