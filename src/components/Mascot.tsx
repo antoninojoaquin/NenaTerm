@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Image, Pressable, View } from "react-native";
+import { Asset } from "expo-asset";
 import {
   ANIMATIONS,
   MascotAnimation,
@@ -44,8 +45,10 @@ export default function Mascot({
 
   const active = reaction?.name ?? animation;
   const { source, fps } = ANIMATIONS[active];
-  const sheet = Image.resolveAssetSource(source);
-  const frames = Math.max(1, Math.round((sheet?.width ?? FRAME) / FRAME));
+  // expo-asset da el ancho de la hoja en Android, iOS y web
+  // (Image.resolveAssetSource no existe en la web)
+  const sheetWidth = Asset.fromModule(source).width ?? FRAME;
+  const frames = Math.max(1, Math.round(sheetWidth / FRAME));
 
   // la reacción salta el primer frame (la pose normal)
   const startFrame = reaction && frames > 1 ? 1 : 0;
