@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import * as Speech from "expo-speech";
 import { Lang } from "./translate";
 
@@ -42,6 +43,7 @@ const bestVoice = (lang: Lang) => (voiceCache[lang] ??= findVoice(lang).catch(()
 // Llamarla al abrir la app arranca el motor y le hace decir algo en volumen 0,
 // así el primer botón de escuchar ya encuentra todo listo
 export async function warmUpSpeech() {
+  if (Platform.OS === "web") return; // el navegador no lo necesita
   const voice = await bestVoice("en");
   if (current) return; // ya están escuchando algo de verdad
   Speech.speak("hi", { language: "en-US", voice, pitch: PITCH, volume: 0 });

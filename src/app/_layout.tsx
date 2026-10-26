@@ -6,11 +6,16 @@ import { warmUpSpeech } from "../services/speech";
 import { loadSounds } from "../services/sounds";
 
 SplashScreen.preventAutoHideAsync();
-warmUpSpeech();
-loadSounds();
 
 export default function RootLayout() {
   const [loaded] = useFonts({ Nunito_600SemiBold, Nunito_800ExtraBold });
+
+  // en un efecto y no al cargar el archivo: la versión web también se
+  // renderiza en el servidor, donde no hay voz ni audio
+  useEffect(() => {
+    warmUpSpeech();
+    loadSounds();
+  }, []);
 
   useEffect(() => {
     if (loaded) SplashScreen.hideAsync();
