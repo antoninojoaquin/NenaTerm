@@ -28,7 +28,15 @@ Nena acompaña en todas las pantallas: salta cuando acertás, se golpea cuando e
 
 ## Instalarla en Android
 
-La app se distribuye como un `.apk` generado con EAS (ver [Generar el APK](#generar-el-apk)). Para instalarlo, abrí el archivo desde el celular y aceptá instalar apps de esa fuente. Las actualizaciones llegan solas: se descargan al abrir la app y se aplican la próxima vez que se abre.
+<p align="center">
+  <a href="https://github.com/antoninojoaquin/NenaTerm/releases/latest/download/NenaTerm.apk"><strong>⬇️ Descargar NenaTerm (APK)</strong></a>
+</p>
+
+1. Abrí el link desde el celular y descargá el `.apk`.
+2. Abrilo. Android te va a pedir permiso para instalar apps desde el navegador o el administrador de archivos: aceptalo (es normal para apps que no vienen de la Play Store).
+3. Si aparece un aviso de Play Protect, tocá **Instalar de todas formas**.
+
+Las actualizaciones llegan solas: se descargan al abrir la app y se aplican la próxima vez que se abre. Las versiones anteriores están en [Releases](https://github.com/antoninojoaquin/NenaTerm/releases).
 
 ## Correrla en modo desarrollo
 
@@ -77,7 +85,11 @@ npx eas-cli@latest login
 npx eas-cli@latest build -p android --profile preview
 ```
 
-Al terminar, EAS da un link para descargar el `.apk`. Cada build nuevo se instala encima del anterior sin perder nada.
+Al terminar, EAS da un link para descargar el `.apk`. Cada build nuevo se instala encima del anterior sin perder nada. Para que aparezca en el link de descarga, subilo como `NenaTerm.apk` a un Release nuevo:
+
+```bash
+gh release create v1.0.1 NenaTerm.apk --title "NenaTerm v1.0.1" --notes "qué cambió"
+```
 
 Los sprites de Nena no están en el repo, pero el build los necesita: por eso [`.easignore`](.easignore) los incluye al subir el proyecto a EAS.
 
