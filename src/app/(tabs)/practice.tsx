@@ -28,15 +28,15 @@ const MENU_CUE: MascotCue = { animation: "sat", message: "¿Practicamos? Elegí 
 const START_CUE: Record<QuizMode, string> = {
   "en-es": "¿Qué significa en español?",
   "es-en": "¿Cómo se dice en inglés?",
-  listen: "¡Escuchá bien!",
-  definition: "¿Qué palabra es?",
+  listen: "¡Pará las orejas!",
+  definition: "¿Se te ocurre cuál es?",
 };
 
 function resultCue({ score, total }: Result): MascotCue {
   const ratio = score / total;
-  if (ratio === 1) return { animation: "playing", message: "¡Perfecto! ¡Sos un crack!" };
-  if (ratio >= 0.7) return { animation: "jump", message: "¡Muy bien! Casi perfecto." };
-  if (ratio >= 0.4) return { animation: "sat", message: "¡Bien! Podés mejorar." };
+  if (ratio === 1) return { animation: "playing", message: "¡Perfecto! ¡Ronroneo de orgullo!" };
+  if (ratio >= 0.7) return { animation: "jump", message: "¡Casi perfecto! ¡Salto de alegría!" };
+  if (ratio >= 0.4) return { animation: "sat", message: "¡Bien! Afilemos las uñas y otra vez." };
   return { animation: "sad", message: "A repasar un poquito más." };
 }
 

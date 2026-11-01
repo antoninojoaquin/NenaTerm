@@ -35,9 +35,9 @@ export default function TranslatorScreen() {
     { animation: MascotAnimation; message: string; loop?: boolean }
   > = {
     idle: { animation: "sat", message: "¿Qué palabra querés traducir?" },
-    loading: { animation: "run", message: "Buscando…", loop: true },
-    success: { animation: "jump", message: "¡Listo! Mirá cómo se dice." },
-    error: { animation: "sad", message: "Ups, algo salió mal." },
+    loading: { animation: "run", message: "Ya te la busco…", loop: true },
+    success: { animation: "jump", message: "¡La encontré! Mirá." },
+    error: { animation: "sad", message: "Ups, no me salió." },
   };
 
   const run = async () => {

@@ -41,8 +41,8 @@ export default function GlossaryScreen() {
         title="Glosario"
         message={
           empty
-            ? "No encontré esa palabra…"
-            : "¡Hola, soy Nena! ¿Qué palabra vemos hoy?"
+            ? "Uy, esa no la tengo…"
+            : "¡Hola, soy Nena! ¿Qué palabra aprendemos hoy?"
         }
         animation={empty ? "sad" : "sat"}
       />

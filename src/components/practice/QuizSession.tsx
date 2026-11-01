@@ -26,6 +26,13 @@ const ASK: Record<QuizMode, string> = {
   definition: "¿Qué palabra es?",
 };
 
+// lo que dice Nena en el globo; la tarjeta sigue mostrando la consigna de ASK
+const CUE: Record<QuizMode, string> = {
+  ...ASK,
+  listen: "¿Qué palabra dije?",
+  definition: "¿Se te ocurre cuál es?",
+};
+
 // a partir de este largo (las definiciones) la pregunta va en letra más chica
 const LONG_PROMPT = 40;
 
@@ -66,8 +73,8 @@ export default function QuizSession({ mode, questions, onCue, onFinish, onExit }
     setWrongStreak((s) => s + 1);
     onCue(
       wrongStreak >= 1
-        ? { animation: "dizzy", message: "¡Me mareo! Tranqui, seguimos." }
-        : { animation: "hurt", message: `Casi… era "${optionLabel(mode, term)}".` },
+        ? { animation: "dizzy", message: "No pasa nada, a la próxima sale." }
+        : { animation: "hurt", message: `Casi, casi… era "${optionLabel(mode, term)}".` },
     );
   };
 
@@ -78,7 +85,7 @@ export default function QuizSession({ mode, questions, onCue, onFinish, onExit }
     }
     setIndex((i) => i + 1);
     setPicked(null);
-    onCue({ animation: "sat", message: ASK[mode] });
+    onCue({ animation: "sat", message: CUE[mode] });
   };
 
   const variantFor = (option: Term): CartoonVariant => {
