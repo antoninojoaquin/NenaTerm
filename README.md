@@ -4,6 +4,8 @@
 
 **NenaTerm** es una app de celular (Android / iOS) con el glosario de palabras técnicas en inglés que fuimos anotando durante el año en **Inglés Técnico II**. Además de consultarlas, sirve para practicarlas y escucharlas, con la ayuda de **Nena**, una gatita que reacciona a lo que hacés.
 
+**Mirá el proyecto en acción:** [nenaterm.vercel.app](https://nenaterm.vercel.app), un recorrido con Nena por la app y por cómo se hizo.
+
 <p align="center">
   <img src="docs/screenshots/glosario.png" alt="Glosario" width="180">
   <img src="docs/screenshots/practica.png" alt="Menú de práctica" width="180">
